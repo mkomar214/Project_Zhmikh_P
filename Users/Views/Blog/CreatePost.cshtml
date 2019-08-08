@@ -1,0 +1,43 @@
+﻿@model Users.Models.PostsDb
+
+@{
+    ViewBag.Title = "CreatePost";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+    var loadImagePreview = function (event) {
+        var output = document.getElementById('output');
+        output.src = URL.createObjectURL(event.target.files[0]);
+    };
+</script>
+
+@Html.ValidationSummary(false)
+@using (Html.BeginForm("CreatePost", "Blog",
+       FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="form-group">
+        <label>Заголовок</label>
+        @Html.TextBoxFor(x => x.Title, new { @class = "form-control" })
+        <label>Сообщение</label>
+
+        @Html.TextAreaFor(x => x.Content, new { @class = "form-control", @rows = "20" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Запостить</button>
+    @Html.ActionLink("Отмена", "Index", null, new { @class = "btn btn-default" })
+
+    <div class="form-group">
+        <div style="position:relative;">
+            <label>Картинка</label>
+            <a class='btn' href='javascript:;'>
+                Выберите файл...
+                <input type="file" name="Image" size="40"
+                       style="position:absolute; z-index:2; top:0; left:0; filter:alpha(opacity=0); opacity:0;
+                              background-color:transparent; color:transparent;"
+                       onchange="loadImagePreview(event)" />
+            </a>
+            <img id="output" class="img-responsive"/>
+        </div>
+    </div>
+}

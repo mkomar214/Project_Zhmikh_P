@@ -1,0 +1,48 @@
+﻿@using Users.Controllers
+@using System.Linq
+@using Users.Models
+@model AppUser
+
+@{
+    ViewBag.Title = "Пользовательские свойства";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Пользовательские свойства
+    </div>
+    <table class="table table-striped">
+        <tr>
+            <th>Текущий город</th>
+            <td>@HomeController.Display(Model.City)</td>
+        </tr>
+        <tr>
+            <th>Страна</th>
+            <td>@HomeController.Display(Model.Country)</td>
+        </tr>
+        
+    </table>
+</div>
+
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        <label>Город: </label>
+        @Html.DropDownListFor(x => x.City,
+                new SelectList(
+                    Enum.GetValues(typeof(Cities))
+                    .OfType<Cities>()
+                      .Select(c =>
+                      {
+                          return new
+                          {
+                              Id = c,
+                              Text = HomeController.Display(c)
+                          };
+                      }),
+                    "Id", "Text")
+                )
+    </div>
+    <button class="btn btn-primary" type="submit">Сохранить</button>
+}

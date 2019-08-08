@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Oswald&display=swap" rel="stylesheet">
+</head>
+<body class="container">
+    <div class="container">
+        <div class="navbar navbar-default">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/Blog/">PROJECT ZHMIKH</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/Blog/">Blog</a></li>
+                <li class="active"><a href="/Admin/">Admin</a></li>
+                <li class="active"><a href="/RoleAdmin/">RoleAdmin</a></li>
+                <li class="active"><a href="/Home/">Home(Info)</a></li>
+                <li class="active"><a href="/Home/UserProps/">UserProps</a></li>
+                <li class="active"><a href="/Claims/">Claims</a></li>
+
+            </ul>
+        </div>
+        @RenderBody()
+    </div>
+    <style>
+        .container {
+            padding-top: 10px;
+        }
+
+        .validation-summary-errors {
+            color: #f00;
+        }
+    </style>
+</body>
+</html>
+

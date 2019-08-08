@@ -1,0 +1,52 @@
+﻿@using Users.Models;
+@model IEnumerable<PostsDb>
+
+@{
+    ViewBag.Title = "Блог";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.ActionLink("Запостить", "CreatePost", null, new { @class = "btn btn-primary" })
+
+<div class="panel panel-group">
+
+    @if (Model.Count() == 0)
+    {
+        <div class="panel-primary">
+            <div class="panel-heading">
+                Блог пока что пуст
+            </div>
+        </div>
+    }
+    else
+    {
+
+        foreach (PostsDb db in Model)
+        {
+            <div class="panel-primary">
+                <div class="panel-heading" style="font-family: 'Oswald', sans-serif; font-size: medium">
+                    @db.Title
+                </div>
+                <div class="panel-body" style="white-space: pre-line;font-family: 'Segoe UI''Malgun Gothic' sans-serif;font-size:large">
+                    @db.Content
+                    @if (db.ImageData != null)
+                    {
+                        <img class="img-thumbnail" width="150" height="150"
+                             src="@Url.Action("GetImage", "Blog",
+                            new { db.Id })" />
+                    }
+                    <div class="text-right text-primary">
+                        @db.UserName
+                    </div>
+                </div>
+            </div>
+
+            using (Html.BeginForm("DeletePost", "Blog", new { id = db.Id }))
+            {
+                <button class="btn btn-danger btn-xs" type="submit">Удалить</button>
+            }
+
+        }
+    }
+
+</div>
